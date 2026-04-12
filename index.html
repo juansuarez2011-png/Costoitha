@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Syntro Academy - Calculadora ITHA</title>
+    <title>Syntro Academy - Calculadora ITHA Pro</title>
     <style>
         :root {
             --primary: #1a2a3a;
@@ -45,7 +45,12 @@
             padding-bottom: 15px;
         }
 
-        .logo-container img { height: 50px; width: auto; }
+        .logo-container img { 
+            height: 55px; 
+            width: auto; 
+            display: block;
+        }
+
         h1 { color: var(--primary); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; margin: 0; }
 
         .main-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
@@ -67,13 +72,13 @@
         }
 
         .btn-step {
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             border-radius: 12px;
             border: none;
             background: var(--bg);
             box-shadow: var(--neo-shadow);
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: bold;
             color: var(--primary);
             cursor: pointer;
@@ -81,6 +86,7 @@
             justify-content: center;
             align-items: center;
             transition: 0.2s;
+            user-select: none;
         }
 
         .btn-step:active {
@@ -88,11 +94,11 @@
             transform: scale(0.95);
         }
 
-        input[type="range"] { flex-grow: 1; appearance: none; background: transparent; }
+        input[type="range"] { flex-grow: 1; appearance: none; background: transparent; cursor: pointer; }
         input[type="range"]::-webkit-slider-runnable-track { height: 10px; background: #cbd1d8; border-radius: 5px; box-shadow: var(--neo-inset); }
-        input[type="range"]::-webkit-slider-thumb { appearance: none; height: 26px; width: 26px; background: var(--accent); border-radius: 50%; margin-top: -8px; cursor: pointer; border: 2px solid white; }
+        input[type="range"]::-webkit-slider-thumb { appearance: none; height: 26px; width: 26px; background: var(--accent); border-radius: 50%; margin-top: -8px; box-shadow: 2px 2px 5px rgba(0,0,0,0.2); border: 2px solid white; }
 
-        input[type="number"] { border: none; padding: 12px; border-radius: 10px; background: var(--bg); box-shadow: var(--neo-inset); font-size: 1rem; outline: none; color: var(--primary); font-weight: bold; }
+        input[type="number"] { border: none; padding: 12px; border-radius: 10px; background: var(--bg); box-shadow: var(--neo-inset); font-size: 1rem; outline: none; color: var(--primary); font-weight: bold; width: 100%; box-sizing: border-box; }
 
         .visual-section { display: flex; flex-direction: column; align-items: center; justify-content: center; }
 
@@ -131,10 +137,11 @@
             z-index: 2;
         }
 
-        .itha-display { font-size: 4rem; font-weight: 900; margin: 5px 0; line-height: 1; }
+        .itha-display { font-size: 4.5rem; font-weight: 900; margin: 0; line-height: 1.1; }
 
-        .metrics-sub { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; width: 100%; margin-top: 15px; }
-        .sub-badge { background: white; padding: 10px 5px; border-radius: 15px; font-size: 0.65rem; font-weight: 800; box-shadow: var(--neo-shadow); color: var(--primary); text-align: center; }
+        .metrics-sub { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; width: 100%; margin-top: 20px; }
+        .sub-badge { background: white; padding: 12px 5px; border-radius: 15px; font-size: 0.65rem; font-weight: 800; box-shadow: var(--neo-shadow); color: var(--primary); text-align: center; }
+        .sub-badge span { display: block; font-size: 1.1rem; color: var(--accent); margin-top: 4px; }
 
         .results-footer { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 30px; }
         @media (max-width: 600px) { .results-footer { grid-template-columns: 1fr 1fr; } }
@@ -152,7 +159,7 @@
 <div class="calculator-card">
     <div class="header">
         <div class="logo-container">
-            <img src="https://juansuarez2011-png.github.io/logo.png/" alt="Syntro Academy">
+            <img src="https://juansuarez2011-png.github.io/logo.png" alt="Syntro Academy">
         </div>
         <h1>Impacto Productivo ITHA</h1>
     </div>
@@ -160,7 +167,7 @@
     <div class="main-layout">
         <div class="input-section">
             <div class="control-group">
-                <label>Nivel de ITHA: <span style="color:var(--accent)" id="itha-val">72</span></label>
+                <label>Nivel de ITHA: <strong style="color:var(--accent); font-size: 1rem;" id="itha-val">72</strong></label>
                 <div class="itha-controls">
                     <button class="btn-step" onclick="stepItha(-1)">−</button>
                     <input type="range" id="itha-slider" min="60" max="100" value="72" step="1">
@@ -191,12 +198,12 @@
                 <div class="needle" id="gauge-needle"></div>
             </div>
             <div class="itha-display" id="big-itha">72</div>
-            <div id="status-label" style="font-weight:900; font-size:1rem; text-transform:uppercase;">CONFORT</div>
+            <div id="status-label" style="font-weight:900; font-size:1rem; text-transform:uppercase; margin-top: 5px;">CONFORT</div>
             
             <div class="metrics-sub">
-                <div class="sub-badge">LITROS PERD.<br><span id="badge-leche" style="font-size:1rem; color:var(--accent)">0.0</span> L</div>
-                <div class="sub-badge">DÍAS IPP<br><span id="badge-ipp" style="font-size:1rem; color:var(--accent)">0.0</span> D</div>
-                <div class="sub-badge">PESO PERD.<br><span id="badge-peso" style="font-size:1rem; color:var(--accent)">0.0</span> Kg</div>
+                <div class="sub-badge">LITROS PERD.<span id="badge-leche">0.0</span></div>
+                <div class="sub-badge">DÍAS IPP<span id="badge-ipp">0.0</span></div>
+                <div class="sub-badge">PESO PERD. (kg)<span id="badge-peso">0.00</span></div>
             </div>
         </div>
     </div>
@@ -215,8 +222,11 @@
     
     function stepItha(val) {
         let current = parseInt(slider.value);
-        slider.value = current + val;
-        update();
+        let newValue = current + val;
+        if (newValue >= 60 && newValue <= 100) {
+            slider.value = newValue;
+            update();
+        }
     }
 
     function update() {
@@ -232,41 +242,44 @@
         const rotation = ((itha - 60) / 40) * 180 - 90;
         document.getElementById('gauge-needle').style.transform = `translateX(-50%) rotate(${rotation}deg)`;
 
-        // Estados
+        // Colores de alerta
         let color = 'var(--safe)'; let status = 'CONFORT';
         if(itha > 72) { color = 'var(--warning)'; status = 'ESTRÉS LEVE'; }
         if(itha > 79) { color = 'var(--danger)'; status = 'ESTRÉS SEVERO'; }
+        
         document.getElementById('big-itha').style.color = color;
         document.getElementById('status-label').innerText = status;
         document.getElementById('status-label').style.color = color;
 
-        // Cálculos de Pérdidas
-        // 1. Leche (1.075 L por punto arriba de 72)
+        // 1. Cálculos de Leche (1.075 L perdidos por punto de ITHA > 72)
         let lPerdidos = itha > 72 ? (itha - 72) * 1.075 * n : 0;
         document.getElementById('badge-leche').innerText = lPerdidos.toFixed(1);
         const $leche = lPerdidos * pl;
 
-        // 2. IPP (1.5 días adicionales arriba de 70)
+        // 2. IPP (1.5 días adicionales de intervalo por punto de ITHA > 70)
         let dIpp = itha > 70 ? (itha - 70) * 1.5 : 0;
         document.getElementById('badge-ipp').innerText = dIpp.toFixed(1);
         const $repro = dIpp * cm * n;
 
-        // 3. Peso (Aprox 0.05kg perdidos por punto arriba de 72)
+        // 3. Peso (GDP): 0.05kg perdidos por punto de ITHA > 72
         let kgPerdidos = itha > 72 ? (itha - 72) * 0.05 * n : 0;
         document.getElementById('badge-peso').innerText = kgPerdidos.toFixed(2);
         const $peso = kgPerdidos * pc;
 
-        // Totales en Interfaz
-        document.getElementById('res-leche').innerText = '$' + $leche.toLocaleString(undefined,{minimumFractionDigits:2});
-        document.getElementById('res-repro').innerText = '$' + $repro.toLocaleString(undefined,{minimumFractionDigits:2});
-        document.getElementById('res-peso').innerText = '$' + $peso.toLocaleString(undefined,{minimumFractionDigits:2});
+        // Actualización de Resultados Monetarios
+        document.getElementById('res-leche').innerText = '$' + $leche.toLocaleString(undefined,{minimumFractionDigits:2, maximumFractionDigits:2});
+        document.getElementById('res-repro').innerText = '$' + $repro.toLocaleString(undefined,{minimumFractionDigits:2, maximumFractionDigits:2});
+        document.getElementById('res-peso').innerText = '$' + $peso.toLocaleString(undefined,{minimumFractionDigits:2, maximumFractionDigits:2});
         
+        // Pérdida Total Mensual (Leche y Peso se calculan por 30 días, Repro es mensual)
         const totalMes = ($leche * 30) + $repro + ($peso * 30);
-        document.getElementById('res-total').innerText = '$' + totalMes.toLocaleString(undefined,{minimumFractionDigits:2});
+        document.getElementById('res-total').innerText = '$' + totalMes.toLocaleString(undefined,{minimumFractionDigits:2, maximumFractionDigits:2});
     }
 
     slider.addEventListener('input', update);
     inputs.forEach(id => document.getElementById(id).addEventListener('input', update));
+    
+    // Iniciar
     update();
 </script>
 
