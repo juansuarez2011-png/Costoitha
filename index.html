@@ -39,7 +39,6 @@
         .visual-section { text-align: center; display: flex; flex-direction: column; align-items: center; }
         .gauge-container { position: relative; width: 300px; height: 150px; overflow: hidden; margin-top: 10px; }
         
-        /* Arco Grueso Calibrado */
         .gauge-arc { 
             width: 300px; 
             height: 300px; 
@@ -51,8 +50,8 @@
                 #c0392b 120deg 180deg, 
                 transparent 180deg
             ); 
-            mask: radial-gradient(circle, transparent 48%, black 49%); 
-            -webkit-mask: radial-gradient(circle, transparent 48%, black 49%); 
+            mask: radial-gradient(circle, transparent 46%, black 47%); 
+            -webkit-mask: radial-gradient(circle, transparent 46%, black 47%); 
         }
         
         .needle { 
@@ -120,9 +119,9 @@
             <div class="status-text" id="status">CONFORT</div>
 
             <div class="tech-metrics">
-                <div class="tech-card"><span>Litros Perd.</span><strong id="t-leche">0.0</strong></div>
+                <div class="tech-card"><span>Litros/Día</span><strong id="t-leche">0.0</strong></div>
                 <div class="tech-card"><span>Días IPP</span><strong id="t-ipp">0.0</strong></div>
-                <div class="tech-card"><span>Peso Perd. (kg)</span><strong id="t-peso">0.0</strong></div>
+                <div class="tech-card"><span>Kg Peso/Día</span><strong id="t-peso">0.0</strong></div>
             </div>
         </div>
     </div>
@@ -157,7 +156,6 @@
         let col = '#27ae60'; 
         let txt = 'CONFORT';
 
-        // Lógica de aguja sincronizada con las franjas visuales
         if (itha <= 72) {
             angle = -90 + ((itha - 60) / 12) * 60;
             col = '#27ae60';
@@ -178,17 +176,17 @@
         document.getElementById('status').style.color = col;
         document.getElementById('status').innerText = txt;
 
-        let litrosPerdidos = itha > 72 ? (itha - 72) * 1.075 * n : 0;
-        let diasIpp = itha > 70 ? (itha - 70) * 1.5 : 0;
-        let kgPerdidos = itha > 72 ? (itha - 72) * 0.05 * n : 0;
+        let litrosPerdVaca = itha > 72 ? (itha - 72) * 1.075 : 0;
+        let diasIppVaca = itha > 72 ? (itha - 72) * 1.5 : 0;
+        let kgPerdVaca = itha > 72 ? (itha - 72) * 0.05 : 0;
 
-        document.getElementById('t-leche').innerText = litrosPerdidos.toFixed(1);
-        document.getElementById('t-ipp').innerText = (diasIpp * n).toFixed(1);
-        document.getElementById('t-peso').innerText = kgPerdidos.toFixed(1);
+        document.getElementById('t-leche').innerText = litrosPerdVaca.toFixed(1);
+        document.getElementById('t-ipp').innerText = diasIppVaca.toFixed(1);
+        document.getElementById('t-peso').innerText = kgPerdVaca.toFixed(1);
 
-        let $leche = litrosPerdidos * pl;
-        let $ipp = (diasIpp * n * cm);
-        let $peso = kgPerdidos * pc;
+        let $leche = (litrosPerdVaca * n) * pl;
+        let $ipp = (diasIppVaca * n) * cm;
+        let $peso = (kgPerdVaca * n) * pc;
 
         document.getElementById('r-leche').innerText = '$' + $leche.toLocaleString(undefined, {minimumFractionDigits:2});
         document.getElementById('r-ipp').innerText = '$' + $ipp.toLocaleString(undefined, {minimumFractionDigits:2});
