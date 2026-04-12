@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Syntro Academy - Impacto Productivo ITHA</title>
+    <title>Syntro Academy - Impacto ITHA Vaca-Ternero</title>
     <style>
         :root {
             --s-1: #d9ed92; --s-2: #b5e48c; --s-3: #99d98c;
@@ -18,16 +18,20 @@
         }
 
         body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; padding: 20px; margin: 0; }
-        .calculator-card { background: var(--card-bg); padding: 30px; border-radius: 30px; width: 100%; max-width: 950px; box-shadow: var(--shadow); border: 1px solid rgba(255,255,255,0.05); }
+        .calculator-card { background: var(--card-bg); padding: 30px; border-radius: 30px; width: 100%; max-width: 950px; box-shadow: var(--shadow); border: 1px solid rgba(255,255,255,0.05); position: relative; }
         .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
         .logo-container img { height: 70px; width: auto; }
-        h1 { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; color: var(--s-2); margin: 0; }
+        h1 { font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; color: var(--s-2); margin: 0; text-align: right; line-height: 1.2; }
         
         .main-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
         @media (max-width: 768px) { .main-layout { grid-template-columns: 1fr; } }
         
-        .control-group { margin-bottom: 18px; }
+        .control-group { margin-bottom: 18px; position: relative; }
         label { display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 8px; color: var(--s-3); }
+        
+        .info-btn { background: var(--s-8); border: none; color: white; border-radius: 50%; width: 22px; height: 22px; font-size: 14px; cursor: pointer; margin-left: 8px; vertical-align: middle; transition: 0.3s; box-shadow: var(--shadow); }
+        .info-btn:hover { background: var(--s-5); transform: scale(1.1); }
+
         .itha-controls { display: flex; align-items: center; gap: 15px; }
         .btn-step { width: 45px; height: 45px; border-radius: 12px; border: none; background: var(--s-10); color: white; font-size: 1.5rem; cursor: pointer; box-shadow: var(--shadow); transition: 0.2s; }
         
@@ -84,6 +88,18 @@
         .total-box { grid-column: span 3; background: linear-gradient(145deg, #c0392b, #8e1e14); border: none; padding: 25px; }
         .total-box span { color: rgba(255,255,255,0.8); }
         .total-box strong { color: white; font-size: 2.2rem; }
+
+        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(8px); }
+        .modal-content { background: var(--card-bg); margin: 5% auto; padding: 30px; border-radius: 25px; width: 90%; max-width: 550px; box-shadow: var(--shadow); border: 1px solid var(--s-8); position: relative; }
+        .modal-header { color: var(--s-2); font-size: 1.2rem; margin-bottom: 20px; font-weight: bold; border-bottom: 2px solid var(--s-9); padding-bottom: 10px; }
+        .modal-body { font-size: 0.95rem; line-height: 1.6; color: #efefef; }
+        
+        .maint-table { width: 100%; margin-top: 15px; border-collapse: collapse; background: var(--bg); border-radius: 10px; overflow: hidden; }
+        .maint-table th, .maint-table td { padding: 12px; text-align: left; border-bottom: 1px solid #3a3f44; }
+        .maint-table th { background: var(--s-10); color: var(--s-2); font-size: 0.8rem; text-transform: uppercase; }
+        
+        .close-btn { position: absolute; right: 20px; top: 15px; color: #fff; font-size: 30px; cursor: pointer; opacity: 0.6; }
+        .close-btn:hover { opacity: 1; }
     </style>
 </head>
 <body>
@@ -91,7 +107,7 @@
 <div class="calculator-card">
     <div class="header">
         <div class="logo-container"><img src="logo.png" alt="Syntro Academy"></div>
-        <h1>Impacto Productivo ITHA</h1>
+        <h1>Impacto Bio-Económico ITHA<br><span style="color:var(--s-5); font-size:0.8rem;">Sistema Vaca-Ternero</span></h1>
     </div>
 
     <div class="main-layout">
@@ -104,8 +120,11 @@
                     <button class="btn-step" onclick="changeItha(1)">+</button>
                 </div>
             </div>
-            <div class="control-group"><label>N° Vacas en Lote:</label><input type="number" id="v-vacas" value="50"></div>
-            <div class="control-group"><label>Mantenimiento ($/Día/Vaca):</label><input type="number" id="v-mant" value="2.50" step="0.1"></div>
+            <div class="control-group"><label>N° Vacas (Lote):</label><input type="number" id="v-vacas" value="50"></div>
+            <div class="control-group">
+                <label>Mantenimiento ($/Día/Vaca): <button class="info-btn" onclick="openModal()">i</button></label>
+                <input type="number" id="v-mant" value="2.50" step="0.1">
+            </div>
             <div class="control-group"><label>Precio Leche ($/Litro):</label><input type="number" id="v-leche" value="0.50" step="0.05"></div>
             <div class="control-group"><label>Precio Carne ($/Kg Vivo):</label><input type="number" id="v-carne" value="2.20" step="0.1"></div>
         </div>
@@ -119,24 +138,79 @@
             <div class="status-text" id="status">CONFORT</div>
 
             <div class="tech-metrics">
-                <div class="tech-card"><span>Litros/Día</span><strong id="t-leche">0.0</strong></div>
-                <div class="tech-card"><span>Días IPP</span><strong id="t-ipp">0.0</strong></div>
-                <div class="tech-card"><span>Kg Peso/Día</span><strong id="t-peso">0.0</strong></div>
+                <div class="tech-card"><span>Pérdida Leche</span><strong id="t-leche">0.0</strong></div>
+                <div class="tech-card"><span>Retraso IPP</span><strong id="t-ipp">0.0</strong></div>
+                <div class="tech-card"><span>Pérdida Peso</span><strong id="t-peso">0.0</strong></div>
             </div>
         </div>
     </div>
 
     <div class="results-grid">
-        <div class="res-card"><span>Leche (Día)</span><strong id="r-leche">$0.00</strong></div>
-        <div class="res-card"><span>Reproducción (Mes)</span><strong id="r-ipp">$0.00</strong></div>
-        <div class="res-card"><span>Peso (Día)</span><strong id="r-peso">$0.00</strong></div>
-        <div class="res-card total-box"><span>Pérdida Total Mes Estimada</span><strong id="r-total">$0.00</strong></div>
+        <div class="res-card"><span>Leche (Día Lote)</span><strong id="r-leche">$0.00</strong></div>
+        <div class="res-card"><span>IPP (Impacto Mes)</span><strong id="r-ipp">$0.00</strong></div>
+        <div class="res-card"><span>Carne (Día Lote)</span><strong id="r-peso">$0.00</strong></div>
+        <div class="res-card total-box"><span>Pérdida Proyectada Mensual</span><strong id="r-total">$0.00</strong></div>
+    </div>
+</div>
+
+<div id="infoModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <div class="modal-header">Análisis de Mantenimiento Dinámico</div>
+        <div class="modal-body">
+            <p>Este costo diario asegura la supervivencia y salud de <strong id="m-count">50</strong> vacas y sus terneros antes de producir.</p>
+            
+            <table class="maint-table">
+                <thead>
+                    <tr><th>Concepto</th><th>Costo/Vaca</th><th>Total Lote/Día</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Alimentación (60%)</td><td id="m-v-ali">$1.50</td><td id="m-t-ali">$75.00</td></tr>
+                    <tr><td>Sanidad (15%)</td><td id="m-v-san">$0.38</td><td id="m-t-san">$18.75</td></tr>
+                    <tr><td>Manejo (25%)</td><td id="m-v-man">$0.62</td><td id="m-t-man">$31.25</td></tr>
+                    <tr style="background:var(--s-9)"><td><strong>Total Diario</strong></td><td id="m-v-tot"><strong>$2.50</strong></td><td id="m-t-tot"><strong>$125.00</strong></td></tr>
+                </tbody>
+            </table>
+
+            <p style="margin-top:20px; font-size:0.85rem; color:var(--s-2);">
+                * El IPP (Intervalo Entre Partos) se ve afectado porque el estrés calórico reduce la tasa de concepción, obligando a mantener vacas "vacías" por más tiempo, lo que dispara el costo de mantenimiento improductivo.
+            </p>
+        </div>
     </div>
 </div>
 
 <script>
     const slider = document.getElementById('itha-slider');
-    
+    const modal = document.getElementById('infoModal');
+
+    function openModal() { 
+        updateModalData();
+        modal.style.display = "block"; 
+    }
+    function closeModal() { modal.style.display = "none"; }
+    window.onclick = function(event) { if (event.target == modal) closeModal(); }
+
+    function updateModalData() {
+        const n = parseFloat(document.getElementById('v-vacas').value) || 0;
+        const cm = parseFloat(document.getElementById('v-mant').value) || 0;
+
+        document.getElementById('m-count').innerText = n;
+        
+        const vAli = cm * 0.6;
+        const vSan = cm * 0.15;
+        const vMan = cm * 0.25;
+
+        document.getElementById('m-v-ali').innerText = '$' + vAli.toFixed(2);
+        document.getElementById('m-v-san').innerText = '$' + vSan.toFixed(2);
+        document.getElementById('m-v-man').innerText = '$' + vMan.toFixed(2);
+        document.getElementById('m-v-tot').innerText = '$' + cm.toFixed(2);
+
+        document.getElementById('m-t-ali').innerText = '$' + (vAli * n).toFixed(2);
+        document.getElementById('m-t-san').innerText = '$' + (vSan * n).toFixed(2);
+        document.getElementById('m-t-man').innerText = '$' + (vMan * n).toFixed(2);
+        document.getElementById('m-t-tot').innerText = '$' + (cm * n).toFixed(2);
+    }
+
     function changeItha(delta) {
         slider.value = parseInt(slider.value) + delta;
         calc();
