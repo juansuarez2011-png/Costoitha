@@ -6,64 +6,83 @@
     <title>Syntro Academy - Impacto Productivo ITHA</title>
     <style>
         :root {
-            /* Paleta Syntro Academy */
             --s-1: #d9ed92; --s-2: #b5e48c; --s-3: #99d98c;
             --s-4: #76c893; --s-5: #52b69a; --s-6: #34a0a4;
             --s-7: #168aad; --s-8: #1a759f; --s-9: #1e6091; --s-10: #184e77;
-            
             --bg: #1a1c1e;
             --card-bg: #2d3134;
             --text: #ffffff;
-            --danger: #c0392b;
+            --danger: #ff4d4d;
             --shadow: 10px 10px 20px #0d0e0f, -5px -5px 15px #3a3f44;
             --inset: inset 4px 4px 8px #0d0e0f, inset -4px -4px 8px #3a3f44;
         }
 
         body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; padding: 20px; margin: 0; }
-
         .calculator-card { background: var(--card-bg); padding: 30px; border-radius: 30px; width: 100%; max-width: 950px; box-shadow: var(--shadow); border: 1px solid rgba(255,255,255,0.05); }
-
         .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
         .logo-container img { height: 70px; width: auto; }
         h1 { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; color: var(--s-2); margin: 0; }
-
+        
         .main-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
         @media (max-width: 768px) { .main-layout { grid-template-columns: 1fr; } }
-
+        
         .control-group { margin-bottom: 18px; }
         label { display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 8px; color: var(--s-3); }
-
         .itha-controls { display: flex; align-items: center; gap: 15px; }
         .btn-step { width: 45px; height: 45px; border-radius: 12px; border: none; background: var(--s-10); color: white; font-size: 1.5rem; cursor: pointer; box-shadow: var(--shadow); transition: 0.2s; }
-        .btn-step:active { box-shadow: var(--inset); transform: scale(0.95); }
-
+        
         input[type="range"] { flex-grow: 1; appearance: none; background: transparent; }
         input[type="range"]::-webkit-slider-runnable-track { height: 8px; background: var(--bg); border-radius: 4px; box-shadow: var(--inset); }
         input[type="range"]::-webkit-slider-thumb { appearance: none; height: 22px; width: 22px; background: var(--s-5); border-radius: 50%; margin-top: -7px; cursor: pointer; border: 2px solid white; }
-
         input[type="number"] { width: 100%; border: none; padding: 12px; border-radius: 10px; background: var(--bg); color: white; font-weight: bold; font-size: 1.1rem; box-shadow: var(--inset); outline: none; box-sizing: border-box; }
 
         .visual-section { text-align: center; display: flex; flex-direction: column; align-items: center; }
         .gauge-container { position: relative; width: 300px; height: 150px; overflow: hidden; margin-top: 10px; }
-        .gauge-arc { width: 300px; height: 300px; border-radius: 50%; background: conic-gradient(from 270deg, #27ae60 0% 30%, #f1c40f 30% 65%, #c0392b 65% 100%); mask: radial-gradient(circle, transparent 48%, black 49%); -webkit-mask: radial-gradient(circle, transparent 48%, black 49%); }
-        .needle { position: absolute; bottom: 0; left: 50%; width: 5px; height: 120px; background: #fff; transform-origin: bottom center; transform: translateX(-50%) rotate(-90deg); transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); z-index: 5; border-radius: 5px; }
+        
+        /* Arco Grueso Calibrado */
+        .gauge-arc { 
+            width: 300px; 
+            height: 300px; 
+            border-radius: 50%; 
+            background: conic-gradient(
+                from 270deg, 
+                #27ae60 0deg 60deg, 
+                #f1c40f 60deg 120deg, 
+                #c0392b 120deg 180deg, 
+                transparent 180deg
+            ); 
+            mask: radial-gradient(circle, transparent 48%, black 49%); 
+            -webkit-mask: radial-gradient(circle, transparent 48%, black 49%); 
+        }
+        
+        .needle { 
+            position: absolute; 
+            bottom: 5px; 
+            left: 50%; 
+            width: 4px; 
+            height: 115px; 
+            background: #fff; 
+            transform-origin: bottom center; 
+            transform: translateX(-50%) rotate(-90deg); 
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            z-index: 5; 
+            border-radius: 4px;
+        }
 
-        .display-val { font-size: 5.5rem; font-weight: 800; margin: 5px 0; color: var(--s-4); }
-        .status-text { font-weight: bold; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; }
+        .display-val { font-size: 5.5rem; font-weight: 800; margin: 5px 0; }
+        .status-text { font-weight: bold; text-transform: uppercase; letter-spacing: 2px; font-size: 1rem; margin-bottom: 15px; }
 
-        /* Etiquetas de Pérdida Técnica (Litros, IPP, Peso) */
-        .tech-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; margin-top: 20px; }
-        .tech-card { background: var(--bg); padding: 12px; border-radius: 15px; box-shadow: var(--inset); text-align: center; }
-        .tech-card span { display: block; font-size: 0.65rem; font-weight: 900; color: var(--s-6); text-transform: uppercase; }
-        .tech-card strong { font-size: 1.2rem; color: var(--s-2); }
+        .tech-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; }
+        .tech-card { background: var(--bg); padding: 10px; border-radius: 12px; box-shadow: var(--inset); text-align: center; }
+        .tech-card span { display: block; font-size: 0.6rem; font-weight: 900; color: var(--s-5); text-transform: uppercase; }
+        .tech-card strong { font-size: 1.1rem; color: var(--s-2); }
 
-        /* Resultados Monetarios */
         .results-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 30px; }
         .res-card { background: var(--bg); padding: 18px; border-radius: 20px; text-align: center; box-shadow: var(--shadow); border-top: 3px solid var(--s-8); }
         .res-card span { display: block; font-size: 0.7rem; color: var(--s-5); text-transform: uppercase; font-weight: 800; margin-bottom: 5px; }
-        .res-card strong { font-size: 1.3rem; color: #ff7675; }
-
-        .total-box { grid-column: span 3; background: linear-gradient(145deg, var(--danger), #8e1e14); border: none; padding: 25px; }
+        .res-card strong { font-size: 1.3rem; color: var(--danger); }
+        
+        .total-box { grid-column: span 3; background: linear-gradient(145deg, #c0392b, #8e1e14); border: none; padding: 25px; }
         .total-box span { color: rgba(255,255,255,0.8); }
         .total-box strong { color: white; font-size: 2.2rem; }
     </style>
@@ -72,9 +91,7 @@
 
 <div class="calculator-card">
     <div class="header">
-        <div class="logo-container">
-            <img src="logo.png" alt="Syntro Academy">
-        </div>
+        <div class="logo-container"><img src="logo.png" alt="Syntro Academy"></div>
         <h1>Impacto Productivo ITHA</h1>
     </div>
 
@@ -88,26 +105,10 @@
                     <button class="btn-step" onclick="changeItha(1)">+</button>
                 </div>
             </div>
-
-            <div class="control-group">
-                <label>N° Vacas en Lote:</label>
-                <input type="number" id="v-vacas" value="50">
-            </div>
-
-            <div class="control-group">
-                <label>Mantenimiento ($/Día/Vaca):</label>
-                <input type="number" id="v-mant" value="2.50" step="0.1">
-            </div>
-
-            <div class="control-group">
-                <label>Precio Leche ($/Litro):</label>
-                <input type="number" id="v-leche" value="0.50" step="0.05">
-            </div>
-
-            <div class="control-group">
-                <label>Precio Carne ($/Kg Vivo):</label>
-                <input type="number" id="v-carne" value="2.20" step="0.1">
-            </div>
+            <div class="control-group"><label>N° Vacas en Lote:</label><input type="number" id="v-vacas" value="50"></div>
+            <div class="control-group"><label>Mantenimiento ($/Día/Vaca):</label><input type="number" id="v-mant" value="2.50" step="0.1"></div>
+            <div class="control-group"><label>Precio Leche ($/Litro):</label><input type="number" id="v-leche" value="0.50" step="0.05"></div>
+            <div class="control-group"><label>Precio Carne ($/Kg Vivo):</label><input type="number" id="v-carne" value="2.20" step="0.1"></div>
         </div>
 
         <div class="visual-section">
@@ -128,7 +129,7 @@
 
     <div class="results-grid">
         <div class="res-card"><span>Leche (Día)</span><strong id="r-leche">$0.00</strong></div>
-        <div class="res-card"><span>Repro (Mes)</span><strong id="r-ipp">$0.00</strong></div>
+        <div class="res-card"><span>Reproducción (Mes)</span><strong id="r-ipp">$0.00</strong></div>
         <div class="res-card"><span>Peso (Día)</span><strong id="r-peso">$0.00</strong></div>
         <div class="res-card total-box"><span>Pérdida Total Mes Estimada</span><strong id="r-total">$0.00</strong></div>
     </div>
@@ -149,30 +150,44 @@
         const pl = parseFloat(document.getElementById('v-leche').value) || 0;
         const pc = parseFloat(document.getElementById('v-carne').value) || 0;
 
-        // UI Updates
         document.getElementById('itha-num').innerText = itha;
         document.getElementById('big-val').innerText = itha;
-        document.getElementById('needle').style.transform = `translateX(-50%) rotate(${((itha-60)/40)*180 - 90}deg)`;
 
-        let col = '#2ecc71'; let txt = 'CONFORT';
-        if(itha > 72) { col = '#f1c40f'; txt = 'ESTRÉS LEVE'; }
-        if(itha > 79) { col = '#e74c3c'; txt = 'ESTRÉS SEVERO'; }
+        let angle = -90;
+        let col = '#27ae60'; 
+        let txt = 'CONFORT';
+
+        // Lógica de aguja sincronizada con las franjas visuales
+        if (itha <= 72) {
+            angle = -90 + ((itha - 60) / 12) * 60;
+            col = '#27ae60';
+            txt = 'CONFORT';
+        } else if (itha <= 79) {
+            angle = -30 + ((itha - 72) / 7) * 60;
+            col = '#f1c40f';
+            txt = 'ESTRÉS LEVE';
+        } else {
+            angle = 30 + ((itha - 79) / 21) * 60;
+            col = '#ff4d4d';
+            txt = 'ESTRÉS SEVERO';
+        }
+        
+        angle = Math.max(-90, Math.min(90, angle));
+        document.getElementById('needle').style.transform = `translateX(-50%) rotate(${angle}deg)`;
         document.getElementById('big-val').style.color = col;
-        document.getElementById('status').innerText = txt;
         document.getElementById('status').style.color = col;
+        document.getElementById('status').innerText = txt;
 
-        // Cálculos Técnicos (Etiquetas solicitadas)
         let litrosPerdidos = itha > 72 ? (itha - 72) * 1.075 * n : 0;
         let diasIpp = itha > 70 ? (itha - 70) * 1.5 : 0;
         let kgPerdidos = itha > 72 ? (itha - 72) * 0.05 * n : 0;
 
         document.getElementById('t-leche').innerText = litrosPerdidos.toFixed(1);
-        document.getElementById('t-ipp').innerText = diasIpp.toFixed(1);
+        document.getElementById('t-ipp').innerText = (diasIpp * n).toFixed(1);
         document.getElementById('t-peso').innerText = kgPerdidos.toFixed(1);
 
-        // Cálculos Económicos
         let $leche = litrosPerdidos * pl;
-        let $ipp = diasIpp * n * cm;
+        let $ipp = (diasIpp * n * cm);
         let $peso = kgPerdidos * pc;
 
         document.getElementById('r-leche').innerText = '$' + $leche.toLocaleString(undefined, {minimumFractionDigits:2});
