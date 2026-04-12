@@ -3,96 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Syntro Academy - Calculadora ITHA Final</title>
+    <title>Syntro Academy - Impacto ITHA</title>
     <style>
         :root {
-            --primary: #1a2a3a;
-            --accent: #d35400;
-            --safe: #27ae60;
-            --warning: #f39c12;
-            --danger: #c0392b;
-            --bg: #e0e5ec;
-            --neo-shadow: 10px 10px 20px #bec3c9, -10px -10px 20px #ffffff;
-            --neo-inset: inset 4px 4px 8px #bec3c9, inset -4px -4px 8px #ffffff;
+            --bg: #1a1c1e;
+            --card-bg: rgba(45, 49, 52, 0.9);
+            --accent: #e67e22;
+            --text: #ffffff;
+            --safe: #2ecc71;
+            --warning: #f1c40f;
+            --danger: #e74c3c;
+            /* Efecto de relieve neomórfico oscuro */
+            --shadow: 10px 10px 20px #0d0e0f, -5px -5px 15px #272a2d;
+            --inset: inset 4px 4px 8px #0d0e0f, inset -4px -4px 8px #272a2d;
         }
 
-        body { background-color: var(--bg); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 15px; display: flex; justify-content: center; }
+        body { 
+            background-color: var(--bg); 
+            color: var(--text); 
+            font-family: 'Segoe UI', sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            padding: 20px; 
+            margin: 0;
+        }
 
         .calculator-card {
-            width: 100%; max-width: 950px; background: var(--bg); padding: 25px; border-radius: 30px;
-            box-shadow: 20px 20px 50px #bec3c9, -20px -20px 50px #ffffff;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 25px;
+            width: 100%;
+            max-width: 900px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
         .header {
-            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
-            gap: 10px; margin-bottom: 25px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
         }
 
-        .logo-container img { 
-            height: 60px; 
-            width: auto; 
-            display: block;
+        .logo-container img {
+            height: 60px;
+            width: auto;
         }
 
-        h1 { color: var(--primary); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; margin: 0; }
+        h1 { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; color: #cbd5e0; margin: 0; }
 
-        .main-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .main-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        @media (max-width: 768px) { .main-layout { grid-template-columns: 1fr; } }
 
-        @media (max-width: 768px) { .main-layout { grid-template-columns: 1fr; } .header { justify-content: center; text-align: center; } }
+        .control-group { margin-bottom: 20px; }
+        label { display: block; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; color: #a0aec0; }
 
-        .input-section { display: flex; flex-direction: column; gap: 15px; }
-        .control-group { display: flex; flex-direction: column; gap: 5px; }
-        label { font-weight: 700; font-size: 0.8rem; color: #444; display: flex; justify-content: space-between; }
-
-        .itha-controls { display: flex; align-items: center; gap: 10px; margin-top: 5px; }
-
+        .itha-controls { display: flex; align-items: center; gap: 15px; }
+        
+        /* Botones de ajuste neomórficos */
         .btn-step {
-            width: 50px; height: 50px; border-radius: 12px; border: none; background: var(--bg);
-            box-shadow: var(--neo-shadow); font-size: 1.5rem; font-weight: bold; color: var(--primary);
-            cursor: pointer; display: flex; justify-content: center; align-items: center; transition: 0.2s;
+            width: 45px; height: 45px; border-radius: 12px; border: none;
+            background: #2d3134; color: white; font-size: 1.5rem; cursor: pointer;
+            box-shadow: var(--shadow); transition: 0.2s;
         }
-
-        .btn-step:active { box-shadow: var(--neo-inset); transform: scale(0.95); }
+        .btn-step:active { box-shadow: var(--inset); transform: scale(0.95); }
 
         input[type="range"] { flex-grow: 1; appearance: none; background: transparent; }
-        input[type="range"]::-webkit-slider-runnable-track { height: 10px; background: #cbd1d8; border-radius: 5px; box-shadow: var(--neo-inset); }
-        input[type="range"]::-webkit-slider-thumb { appearance: none; height: 26px; width: 26px; background: var(--accent); border-radius: 50%; margin-top: -8px; border: 2px solid white; }
+        input[type="range"]::-webkit-slider-runnable-track { height: 8px; background: #1a1c1e; border-radius: 4px; box-shadow: var(--inset); }
+        input[type="range"]::-webkit-slider-thumb { appearance: none; height: 22px; width: 22px; background: var(--accent); border-radius: 50%; margin-top: -7px; cursor: pointer; }
 
-        input[type="number"] { border: none; padding: 12px; border-radius: 10px; background: var(--bg); box-shadow: var(--neo-inset); font-size: 1rem; outline: none; color: var(--primary); font-weight: bold; }
+        input[type="number"] {
+            width: 100%; border: none; padding: 12px; border-radius: 10px;
+            background: #1a1c1e; color: white; font-weight: bold; font-size: 1.1rem;
+            box-shadow: var(--inset); outline: none; box-sizing: border-box;
+        }
 
-        .visual-section { display: flex; flex-direction: column; align-items: center; justify-content: center; }
-
-        .gauge-container { position: relative; width: 300px; height: 150px; overflow: hidden; display: flex; justify-content: center; align-items: flex-end; }
+        .visual-section { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        
+        /* Tacómetro */
+        .gauge-container { position: relative; width: 280px; height: 140px; overflow: hidden; }
         .gauge-arc {
-            width: 300px; height: 300px; border-radius: 50%;
+            width: 280px; height: 280px; border-radius: 50%;
             background: conic-gradient(from 270deg, var(--safe) 0% 30%, var(--warning) 30% 65%, var(--danger) 65% 100%);
-            mask: radial-gradient(circle, transparent 45%, black 46%);
-            -webkit-mask: radial-gradient(circle, transparent 45%, black 46%);
-            position: absolute; top: 0;
+            mask: radial-gradient(circle, transparent 48%, black 49%);
+            -webkit-mask: radial-gradient(circle, transparent 48%, black 49%);
         }
-
         .needle {
-            position: absolute; bottom: 0; left: 50%; width: 6px; height: 125px; background: #222;
-            transform-origin: bottom center; transform: translateX(-50%) rotate(-90deg);
-            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border-radius: 10px 10px 0 0; z-index: 2;
+            position: absolute; bottom: 0; left: 50%; width: 4px; height: 110px;
+            background: #ffffff; transform-origin: bottom center; transform: translateX(-50%) rotate(-90deg);
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); z-index: 5;
         }
 
-        .itha-display { font-size: 4.5rem; font-weight: 900; margin: 0; line-height: 1.1; }
+        .display-val { font-size: 5rem; font-weight: 800; margin: 10px 0; }
+        .status-text { font-weight: bold; text-transform: uppercase; letter-spacing: 2px; }
 
-        .metrics-sub { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; width: 100%; margin-top: 15px; }
-        .sub-badge { background: white; padding: 12px 5px; border-radius: 15px; font-size: 0.65rem; font-weight: 800; box-shadow: var(--neo-shadow); color: var(--primary); text-align: center; }
-        .sub-badge span { display: block; font-size: 1.1rem; color: var(--accent); margin-top: 4px; }
+        .results-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 30px; }
+        .res-card { 
+            background: #2d3134; padding: 15px; border-radius: 18px; text-align: center;
+            box-shadow: var(--shadow);
+        }
+        .res-card span { display: block; font-size: 0.65rem; color: #a0aec0; text-transform: uppercase; margin-bottom: 5px; font-weight: bold; }
+        .res-card strong { font-size: 1.2rem; color: #ff6b6b; }
 
-        .results-footer { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 30px; }
-        @media (max-width: 600px) { .results-footer { grid-template-columns: 1fr 1fr; } }
-
-        .result-card { background: var(--bg); padding: 15px; border-radius: 20px; box-shadow: var(--neo-shadow); text-align: center; }
-        .result-card span { display: block; font-size: 0.6rem; color: #666; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; }
-        .result-card strong { font-size: 1.1rem; color: var(--danger); }
-        .total-card { background: linear-gradient(145deg, #ff6b6b, #e63946); }
-        .total-card span, .total-card strong { color: white !important; }
-        @media (max-width: 600px) { .total-card { grid-column: span 2; } }
+        .total-box { 
+            grid-column: span 3; background: linear-gradient(145deg, #c0392b, #a93226); 
+            margin-top: 10px; padding: 20px;
+        }
+        .total-box strong { color: white; font-size: 1.8rem; }
     </style>
 </head>
 <body>
@@ -100,7 +117,7 @@
 <div class="calculator-card">
     <div class="header">
         <div class="logo-container">
-            <img src="https://juansuarez2011-png.github.io/logo.png" alt="Syntro Academy">
+            <img src="logo.png" alt="Syntro Academy">
         </div>
         <h1>Impacto Productivo ITHA</h1>
     </div>
@@ -108,106 +125,97 @@
     <div class="main-layout">
         <div class="input-section">
             <div class="control-group">
-                <label>Nivel de ITHA: <strong id="itha-val" style="color:var(--accent)">72</strong></label>
+                <label>Nivel de ITHA: <span id="itha-num" style="color:var(--accent)">72</span></label>
                 <div class="itha-controls">
-                    <button class="btn-step" onclick="stepItha(-1)">−</button>
+                    <button class="btn-step" onclick="changeItha(-1)">−</button>
                     <input type="range" id="itha-slider" min="60" max="100" value="72">
-                    <button class="btn-step" onclick="stepItha(1)">+</button>
+                    <button class="btn-step" onclick="changeItha(1)">+</button>
                 </div>
             </div>
+
             <div class="control-group">
-                <label>N° Animales en Lote:</label>
-                <input type="number" id="num-vacas" value="50">
+                <label>N° Vacas en Lote:</label>
+                <input type="number" id="v-vacas" value="50">
             </div>
+
             <div class="control-group">
-                <label>Mantenimiento ($/Día):</label>
-                <input type="number" id="costo-mant" value="2.50" step="0.1">
+                <label>Mantenimiento ($/Día/Vaca):</label>
+                <input type="number" id="v-mant" value="2.50" step="0.1">
             </div>
+
             <div class="control-group">
-                <label>Precio Leche ($/L):</label>
-                <input type="number" id="precio-leche" value="0.50" step="0.05">
+                <label>Precio Leche ($/Litro):</label>
+                <input type="number" id="v-leche" value="0.50" step="0.05">
             </div>
+
             <div class="control-group">
-                <label>Precio Carne ($/Kg):</label>
-                <input type="number" id="precio-carne" value="2.20" step="0.1">
+                <label>Precio Carne ($/Kg Vivo):</label>
+                <input type="number" id="v-carne" value="2.20" step="0.1">
             </div>
         </div>
 
         <div class="visual-section">
             <div class="gauge-container">
                 <div class="gauge-arc"></div>
-                <div class="needle" id="gauge-needle"></div>
+                <div class="needle" id="needle"></div>
             </div>
-            <div class="itha-display" id="big-itha">72</div>
-            <div id="status-label" style="font-weight:900; font-size:0.9rem;">CONFORT</div>
-            
-            <div class="metrics-sub">
-                <div class="sub-badge">LITROS PERD.<span id="badge-leche">0.0</span></div>
-                <div class="sub-badge">DÍAS IPP<span id="badge-ipp">0.0</span></div>
-                <div class="sub-badge">KG PERDIDOS<span id="badge-peso">0.00</span></div>
-            </div>
+            <div class="display-val" id="big-val">72</div>
+            <div class="status-text" id="status">CONFORT</div>
         </div>
     </div>
 
-    <div class="results-footer">
-        <div class="result-card"><span>Leche (Día)</span><strong id="res-leche">$0.00</strong></div>
-        <div class="result-card"><span>Repro (Mes)</span><strong id="res-repro">$0.00</strong></div>
-        <div class="result-card"><span>Peso (Día)</span><strong id="res-peso">$0.00</strong></div>
-        <div class="result-card total-card"><span>Pérdida Mes</span><strong id="res-total">$0.00</strong></div>
+    <div class="results-grid">
+        <div class="res-card"><span>Leche (Día)</span><strong id="r-leche">$0.00</strong></div>
+        <div class="res-card"><span>IPP (Mes)</span><strong id="r-ipp">$0.00</strong></div>
+        <div class="res-card"><span>Peso (Día)</span><strong id="r-peso">$0.00</strong></div>
+        <div class="res-card total-box"><span>Pérdida Total Mes</span><strong id="r-total">$0.00</strong></div>
     </div>
 </div>
 
 <script>
     const slider = document.getElementById('itha-slider');
-    const inputs = ['num-vacas', 'costo-mant', 'precio-leche', 'precio-carne'];
     
-    function stepItha(val) {
-        let current = parseInt(slider.value);
-        slider.value = current + val;
-        update();
+    function changeItha(delta) {
+        slider.value = parseInt(slider.value) + delta;
+        calc();
     }
 
-    function update() {
+    function calc() {
         const itha = parseInt(slider.value);
-        const n = parseFloat(document.getElementById('num-vacas').value) || 0;
-        const cm = parseFloat(document.getElementById('costo-mant').value) || 0;
-        const pl = parseFloat(document.getElementById('precio-leche').value) || 0;
-        const pc = parseFloat(document.getElementById('precio-carne').value) || 0;
+        const n = parseFloat(document.getElementById('v-vacas').value) || 0;
+        const cm = parseFloat(document.getElementById('v-mant').value) || 0;
+        const pl = parseFloat(document.getElementById('v-leche').value) || 0;
+        const pc = parseFloat(document.getElementById('v-carne').value) || 0;
 
-        document.getElementById('itha-val').innerText = itha;
-        document.getElementById('big-itha').innerText = itha;
-        document.getElementById('gauge-needle').style.transform = `translateX(-50%) rotate(${((itha - 60) / 40) * 180 - 90}deg)`;
+        // UI
+        document.getElementById('itha-num').innerText = itha;
+        document.getElementById('big-val').innerText = itha;
+        document.getElementById('needle').style.transform = `translateX(-50%) rotate(${((itha-60)/40)*180 - 90}deg)`;
 
-        let color = 'var(--safe)'; let status = 'CONFORT';
-        if(itha > 72) { color = 'var(--warning)'; status = 'ESTRÉS LEVE'; }
-        if(itha > 79) { color = 'var(--danger)'; status = 'ESTRÉS SEVERO'; }
-        document.getElementById('big-itha').style.color = color;
-        document.getElementById('status-label').innerText = status;
-        document.getElementById('status-label').style.color = color;
+        let col = 'var(--safe)'; let txt = 'CONFORT';
+        if(itha > 72) { col = 'var(--warning)'; txt = 'ESTRÉS LEVE'; }
+        if(itha > 79) { col = 'var(--danger)'; txt = 'ESTRÉS SEVERO'; }
+        document.getElementById('big-val').style.color = col;
+        document.getElementById('status').innerText = txt;
+        document.getElementById('status').style.color = col;
 
-        let lPerdidos = itha > 72 ? (itha - 72) * 1.075 * n : 0;
-        document.getElementById('badge-leche').innerText = lPerdidos.toFixed(1);
-        const $leche = lPerdidos * pl;
+        // Fórmulas
+        let pLeche = itha > 72 ? (itha - 72) * 1.075 * n * pl : 0;
+        let pIpp = itha > 70 ? (itha - 70) * 1.5 * n * cm : 0;
+        let pPeso = itha > 72 ? (itha - 72) * 0.05 * n * pc : 0;
 
-        let dIpp = itha > 70 ? (itha - 70) * 1.5 : 0;
-        document.getElementById('badge-ipp').innerText = dIpp.toFixed(1);
-        const $repro = dIpp * cm * n;
-
-        let kgPerdidos = itha > 72 ? (itha - 72) * 0.05 * n : 0;
-        document.getElementById('badge-peso').innerText = kgPerdidos.toFixed(2);
-        const $peso = kgPerdidos * pc;
-
-        document.getElementById('res-leche').innerText = '$' + $leche.toLocaleString(undefined,{minimumFractionDigits:2});
-        document.getElementById('res-repro').innerText = '$' + $repro.toLocaleString(undefined,{minimumFractionDigits:2});
-        document.getElementById('res-peso').innerText = '$' + $peso.toLocaleString(undefined,{minimumFractionDigits:2});
+        document.getElementById('r-leche').innerText = '$' + pLeche.toFixed(2);
+        document.getElementById('r-ipp').innerText = '$' + pIpp.toFixed(2);
+        document.getElementById('r-peso').innerText = '$' + pPeso.toFixed(2);
         
-        const totalMes = ($leche * 30) + $repro + ($peso * 30);
-        document.getElementById('res-total').innerText = '$' + totalMes.toLocaleString(undefined,{minimumFractionDigits:2});
+        let total = (pLeche * 30) + pIpp + (pPeso * 30);
+        document.getElementById('r-total').innerText = '$' + total.toLocaleString(undefined, {minimumFractionDigits:2});
     }
 
-    slider.addEventListener('input', update);
-    inputs.forEach(id => document.getElementById(id).addEventListener('input', update));
-    update();
+    slider.addEventListener('input', calc);
+    document.querySelectorAll('input[type="number"]').forEach(i => i.addEventListener('input', calc));
+    calc();
 </script>
+
 </body>
 </html>
