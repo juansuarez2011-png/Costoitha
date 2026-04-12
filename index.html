@@ -3,113 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Syntro Academy - Impacto ITHA</title>
+    <title>Syntro Academy - Impacto Productivo ITHA</title>
     <style>
         :root {
+            /* Paleta Syntro Academy */
+            --s-1: #d9ed92; --s-2: #b5e48c; --s-3: #99d98c;
+            --s-4: #76c893; --s-5: #52b69a; --s-6: #34a0a4;
+            --s-7: #168aad; --s-8: #1a759f; --s-9: #1e6091; --s-10: #184e77;
+            
             --bg: #1a1c1e;
-            --card-bg: rgba(45, 49, 52, 0.9);
-            --accent: #e67e22;
+            --card-bg: #2d3134;
             --text: #ffffff;
-            --safe: #2ecc71;
-            --warning: #f1c40f;
-            --danger: #e74c3c;
-            /* Efecto de relieve neomórfico oscuro */
-            --shadow: 10px 10px 20px #0d0e0f, -5px -5px 15px #272a2d;
-            --inset: inset 4px 4px 8px #0d0e0f, inset -4px -4px 8px #272a2d;
+            --danger: #c0392b;
+            --shadow: 10px 10px 20px #0d0e0f, -5px -5px 15px #3a3f44;
+            --inset: inset 4px 4px 8px #0d0e0f, inset -4px -4px 8px #3a3f44;
         }
 
-        body { 
-            background-color: var(--bg); 
-            color: var(--text); 
-            font-family: 'Segoe UI', sans-serif; 
-            display: flex; 
-            justify-content: center; 
-            padding: 20px; 
-            margin: 0;
-        }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; padding: 20px; margin: 0; }
 
-        .calculator-card {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 25px;
-            width: 100%;
-            max-width: 900px;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(255,255,255,0.05);
-        }
+        .calculator-card { background: var(--card-bg); padding: 30px; border-radius: 30px; width: 100%; max-width: 950px; box-shadow: var(--shadow); border: 1px solid rgba(255,255,255,0.05); }
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .logo-container img {
-            height: 60px;
-            width: auto;
-        }
-
-        h1 { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; color: #cbd5e0; margin: 0; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .logo-container img { height: 70px; width: auto; }
+        h1 { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; color: var(--s-2); margin: 0; }
 
         .main-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
         @media (max-width: 768px) { .main-layout { grid-template-columns: 1fr; } }
 
-        .control-group { margin-bottom: 20px; }
-        label { display: block; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; color: #a0aec0; }
+        .control-group { margin-bottom: 18px; }
+        label { display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 8px; color: var(--s-3); }
 
         .itha-controls { display: flex; align-items: center; gap: 15px; }
-        
-        /* Botones de ajuste neomórficos */
-        .btn-step {
-            width: 45px; height: 45px; border-radius: 12px; border: none;
-            background: #2d3134; color: white; font-size: 1.5rem; cursor: pointer;
-            box-shadow: var(--shadow); transition: 0.2s;
-        }
+        .btn-step { width: 45px; height: 45px; border-radius: 12px; border: none; background: var(--s-10); color: white; font-size: 1.5rem; cursor: pointer; box-shadow: var(--shadow); transition: 0.2s; }
         .btn-step:active { box-shadow: var(--inset); transform: scale(0.95); }
 
         input[type="range"] { flex-grow: 1; appearance: none; background: transparent; }
-        input[type="range"]::-webkit-slider-runnable-track { height: 8px; background: #1a1c1e; border-radius: 4px; box-shadow: var(--inset); }
-        input[type="range"]::-webkit-slider-thumb { appearance: none; height: 22px; width: 22px; background: var(--accent); border-radius: 50%; margin-top: -7px; cursor: pointer; }
+        input[type="range"]::-webkit-slider-runnable-track { height: 8px; background: var(--bg); border-radius: 4px; box-shadow: var(--inset); }
+        input[type="range"]::-webkit-slider-thumb { appearance: none; height: 22px; width: 22px; background: var(--s-5); border-radius: 50%; margin-top: -7px; cursor: pointer; border: 2px solid white; }
 
-        input[type="number"] {
-            width: 100%; border: none; padding: 12px; border-radius: 10px;
-            background: #1a1c1e; color: white; font-weight: bold; font-size: 1.1rem;
-            box-shadow: var(--inset); outline: none; box-sizing: border-box;
-        }
+        input[type="number"] { width: 100%; border: none; padding: 12px; border-radius: 10px; background: var(--bg); color: white; font-weight: bold; font-size: 1.1rem; box-shadow: var(--inset); outline: none; box-sizing: border-box; }
 
-        .visual-section { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        
-        /* Tacómetro */
-        .gauge-container { position: relative; width: 280px; height: 140px; overflow: hidden; }
-        .gauge-arc {
-            width: 280px; height: 280px; border-radius: 50%;
-            background: conic-gradient(from 270deg, var(--safe) 0% 30%, var(--warning) 30% 65%, var(--danger) 65% 100%);
-            mask: radial-gradient(circle, transparent 48%, black 49%);
-            -webkit-mask: radial-gradient(circle, transparent 48%, black 49%);
-        }
-        .needle {
-            position: absolute; bottom: 0; left: 50%; width: 4px; height: 110px;
-            background: #ffffff; transform-origin: bottom center; transform: translateX(-50%) rotate(-90deg);
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); z-index: 5;
-        }
+        .visual-section { text-align: center; display: flex; flex-direction: column; align-items: center; }
+        .gauge-container { position: relative; width: 300px; height: 150px; overflow: hidden; margin-top: 10px; }
+        .gauge-arc { width: 300px; height: 300px; border-radius: 50%; background: conic-gradient(from 270deg, #27ae60 0% 30%, #f1c40f 30% 65%, #c0392b 65% 100%); mask: radial-gradient(circle, transparent 48%, black 49%); -webkit-mask: radial-gradient(circle, transparent 48%, black 49%); }
+        .needle { position: absolute; bottom: 0; left: 50%; width: 5px; height: 120px; background: #fff; transform-origin: bottom center; transform: translateX(-50%) rotate(-90deg); transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); z-index: 5; border-radius: 5px; }
 
-        .display-val { font-size: 5rem; font-weight: 800; margin: 10px 0; }
-        .status-text { font-weight: bold; text-transform: uppercase; letter-spacing: 2px; }
+        .display-val { font-size: 5.5rem; font-weight: 800; margin: 5px 0; color: var(--s-4); }
+        .status-text { font-weight: bold; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; }
 
+        /* Etiquetas de Pérdida Técnica (Litros, IPP, Peso) */
+        .tech-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; margin-top: 20px; }
+        .tech-card { background: var(--bg); padding: 12px; border-radius: 15px; box-shadow: var(--inset); text-align: center; }
+        .tech-card span { display: block; font-size: 0.65rem; font-weight: 900; color: var(--s-6); text-transform: uppercase; }
+        .tech-card strong { font-size: 1.2rem; color: var(--s-2); }
+
+        /* Resultados Monetarios */
         .results-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 30px; }
-        .res-card { 
-            background: #2d3134; padding: 15px; border-radius: 18px; text-align: center;
-            box-shadow: var(--shadow);
-        }
-        .res-card span { display: block; font-size: 0.65rem; color: #a0aec0; text-transform: uppercase; margin-bottom: 5px; font-weight: bold; }
-        .res-card strong { font-size: 1.2rem; color: #ff6b6b; }
+        .res-card { background: var(--bg); padding: 18px; border-radius: 20px; text-align: center; box-shadow: var(--shadow); border-top: 3px solid var(--s-8); }
+        .res-card span { display: block; font-size: 0.7rem; color: var(--s-5); text-transform: uppercase; font-weight: 800; margin-bottom: 5px; }
+        .res-card strong { font-size: 1.3rem; color: #ff7675; }
 
-        .total-box { 
-            grid-column: span 3; background: linear-gradient(145deg, #c0392b, #a93226); 
-            margin-top: 10px; padding: 20px;
-        }
-        .total-box strong { color: white; font-size: 1.8rem; }
+        .total-box { grid-column: span 3; background: linear-gradient(145deg, var(--danger), #8e1e14); border: none; padding: 25px; }
+        .total-box span { color: rgba(255,255,255,0.8); }
+        .total-box strong { color: white; font-size: 2.2rem; }
     </style>
 </head>
 <body>
@@ -125,7 +81,7 @@
     <div class="main-layout">
         <div class="input-section">
             <div class="control-group">
-                <label>Nivel de ITHA: <span id="itha-num" style="color:var(--accent)">72</span></label>
+                <label>Nivel de ITHA: <span id="itha-num" style="color:var(--s-1)">72</span></label>
                 <div class="itha-controls">
                     <button class="btn-step" onclick="changeItha(-1)">−</button>
                     <input type="range" id="itha-slider" min="60" max="100" value="72">
@@ -161,14 +117,20 @@
             </div>
             <div class="display-val" id="big-val">72</div>
             <div class="status-text" id="status">CONFORT</div>
+
+            <div class="tech-metrics">
+                <div class="tech-card"><span>Litros Perd.</span><strong id="t-leche">0.0</strong></div>
+                <div class="tech-card"><span>Días IPP</span><strong id="t-ipp">0.0</strong></div>
+                <div class="tech-card"><span>Peso Perd. (kg)</span><strong id="t-peso">0.0</strong></div>
+            </div>
         </div>
     </div>
 
     <div class="results-grid">
         <div class="res-card"><span>Leche (Día)</span><strong id="r-leche">$0.00</strong></div>
-        <div class="res-card"><span>IPP (Mes)</span><strong id="r-ipp">$0.00</strong></div>
+        <div class="res-card"><span>Repro (Mes)</span><strong id="r-ipp">$0.00</strong></div>
         <div class="res-card"><span>Peso (Día)</span><strong id="r-peso">$0.00</strong></div>
-        <div class="res-card total-box"><span>Pérdida Total Mes</span><strong id="r-total">$0.00</strong></div>
+        <div class="res-card total-box"><span>Pérdida Total Mes Estimada</span><strong id="r-total">$0.00</strong></div>
     </div>
 </div>
 
@@ -187,29 +149,38 @@
         const pl = parseFloat(document.getElementById('v-leche').value) || 0;
         const pc = parseFloat(document.getElementById('v-carne').value) || 0;
 
-        // UI
+        // UI Updates
         document.getElementById('itha-num').innerText = itha;
         document.getElementById('big-val').innerText = itha;
         document.getElementById('needle').style.transform = `translateX(-50%) rotate(${((itha-60)/40)*180 - 90}deg)`;
 
-        let col = 'var(--safe)'; let txt = 'CONFORT';
-        if(itha > 72) { col = 'var(--warning)'; txt = 'ESTRÉS LEVE'; }
-        if(itha > 79) { col = 'var(--danger)'; txt = 'ESTRÉS SEVERO'; }
+        let col = '#2ecc71'; let txt = 'CONFORT';
+        if(itha > 72) { col = '#f1c40f'; txt = 'ESTRÉS LEVE'; }
+        if(itha > 79) { col = '#e74c3c'; txt = 'ESTRÉS SEVERO'; }
         document.getElementById('big-val').style.color = col;
         document.getElementById('status').innerText = txt;
         document.getElementById('status').style.color = col;
 
-        // Fórmulas
-        let pLeche = itha > 72 ? (itha - 72) * 1.075 * n * pl : 0;
-        let pIpp = itha > 70 ? (itha - 70) * 1.5 * n * cm : 0;
-        let pPeso = itha > 72 ? (itha - 72) * 0.05 * n * pc : 0;
+        // Cálculos Técnicos (Etiquetas solicitadas)
+        let litrosPerdidos = itha > 72 ? (itha - 72) * 1.075 * n : 0;
+        let diasIpp = itha > 70 ? (itha - 70) * 1.5 : 0;
+        let kgPerdidos = itha > 72 ? (itha - 72) * 0.05 * n : 0;
 
-        document.getElementById('r-leche').innerText = '$' + pLeche.toFixed(2);
-        document.getElementById('r-ipp').innerText = '$' + pIpp.toFixed(2);
-        document.getElementById('r-peso').innerText = '$' + pPeso.toFixed(2);
+        document.getElementById('t-leche').innerText = litrosPerdidos.toFixed(1);
+        document.getElementById('t-ipp').innerText = diasIpp.toFixed(1);
+        document.getElementById('t-peso').innerText = kgPerdidos.toFixed(1);
+
+        // Cálculos Económicos
+        let $leche = litrosPerdidos * pl;
+        let $ipp = diasIpp * n * cm;
+        let $peso = kgPerdidos * pc;
+
+        document.getElementById('r-leche').innerText = '$' + $leche.toLocaleString(undefined, {minimumFractionDigits:2});
+        document.getElementById('r-ipp').innerText = '$' + $ipp.toLocaleString(undefined, {minimumFractionDigits:2});
+        document.getElementById('r-peso').innerText = '$' + $peso.toLocaleString(undefined, {minimumFractionDigits:2});
         
-        let total = (pLeche * 30) + pIpp + (pPeso * 30);
-        document.getElementById('r-total').innerText = '$' + total.toLocaleString(undefined, {minimumFractionDigits:2});
+        let totalMes = ($leche * 30) + $ipp + ($peso * 30);
+        document.getElementById('r-total').innerText = '$' + totalMes.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
     }
 
     slider.addEventListener('input', calc);
