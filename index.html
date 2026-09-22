@@ -13,42 +13,109 @@
             --card-bg: #1a1f24;
             --text: #ffffff;
             --danger: #ff6b6b;
-            --shadow: 10px 10px 25px #08090a, -5px -5px 15px #262f38;
-            --inset: inset 4px 4px 8px #08090a, inset -4px -4px 8px #262f38;
+            --shadow: 8px 8px 20px #08090a, -4px -4px 12px #262f38;
+            --inset: inset 3px 3px 6px #08090a, inset -3px -3px 6px #262f38;
         }
 
-        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; padding: 20px; margin: 0; }
-        .calculator-card { background: var(--card-bg); padding: 30px; border-radius: 30px; width: 100%; max-width: 950px; box-shadow: var(--shadow); border: 1px solid rgba(118, 200, 147, 0.15); position: relative; }
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 2px solid var(--s-10); padding-bottom: 15px; }
-        .logo-container img { height: 70px; width: auto; }
-        h1 { font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; color: var(--s-2); margin: 0; text-align: right; line-height: 1.2; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 12px; 
+            margin: 0; 
+            box-sizing: border-box;
+        }
+
+        .calculator-card { 
+            background: var(--card-bg); 
+            padding: 20px; 
+            border-radius: 24px; 
+            width: 100%; 
+            max-width: 950px; 
+            box-shadow: var(--shadow); 
+            border: 1px solid rgba(118, 200, 147, 0.15); 
+            position: relative; 
+            box-sizing: border-box;
+        }
+
+        .header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 20px; 
+            border-bottom: 2px solid var(--s-10); 
+            padding-bottom: 12px; 
+            gap: 10px;
+        }
+
+        /* Logo ampliado y adaptado para móvil y PC */
+        .logo-container img { 
+            height: 85px; 
+            width: auto; 
+            max-width: 180px;
+            object-fit: contain;
+        }
+
+        h1 { 
+            font-size: 0.95rem; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+            color: var(--s-2); 
+            margin: 0; 
+            text-align: right; 
+            line-height: 1.25; 
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5); 
+        }
         
-        .main-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-        @media (max-width: 768px) { .main-layout { grid-template-columns: 1fr; } }
+        .main-layout { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 25px; 
+        }
+
+        @media (max-width: 768px) { 
+            .main-layout { 
+                grid-template-columns: 1fr; 
+                gap: 20px; 
+            } 
+            .calculator-card {
+                padding: 15px;
+            }
+            .logo-container img {
+                height: 75px;
+            }
+            h1 {
+                font-size: 0.85rem;
+            }
+        }
         
-        .control-group { margin-bottom: 18px; position: relative; }
-        label { display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 8px; color: var(--s-3); }
+        .control-group { margin-bottom: 15px; position: relative; }
+        label { display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 6px; color: var(--s-3); }
         
-        .info-btn { background: var(--s-7); border: none; color: white; border-radius: 50%; width: 22px; height: 22px; font-size: 14px; cursor: pointer; margin-left: 8px; vertical-align: middle; transition: 0.3s; box-shadow: var(--shadow); }
+        .info-btn { background: var(--s-7); border: none; color: white; border-radius: 50%; width: 24px; height: 24px; font-size: 14px; cursor: pointer; margin-left: 6px; vertical-align: middle; transition: 0.3s; box-shadow: var(--shadow); }
         .info-btn:hover { background: var(--s-5); transform: scale(1.1); }
 
-        .itha-controls { display: flex; align-items: center; gap: 15px; }
-        .btn-step { width: 45px; height: 45px; border-radius: 12px; border: none; background: var(--s-9); color: white; font-size: 1.5rem; cursor: pointer; box-shadow: var(--shadow); transition: 0.2s; }
-        .btn-step:hover { background: var(--s-7); transform: translateY(-1px); }
+        .itha-controls { display: flex; align-items: center; gap: 12px; }
+        .btn-step { width: 48px; height: 48px; border-radius: 12px; border: none; background: var(--s-9); color: white; font-size: 1.5rem; cursor: pointer; box-shadow: var(--shadow); transition: 0.2s; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .btn-step:active { transform: scale(0.95); }
         
-        input[type="range"] { flex-grow: 1; appearance: none; background: transparent; cursor: pointer; }
-        input[type="range"]::-webkit-slider-runnable-track { height: 8px; background: var(--bg); border-radius: 4px; box-shadow: var(--inset); }
-        input[type="range"]::-webkit-slider-thumb { appearance: none; height: 22px; width: 22px; background: var(--s-4); border-radius: 50%; margin-top: -7px; cursor: pointer; border: 2px solid white; box-shadow: 0 0 10px var(--s-4); }
+        input[type="range"] { flex-grow: 1; appearance: none; background: transparent; cursor: pointer; height: 24px; }
+        input[type="range"]::-webkit-slider-runnable-track { height: 10px; background: var(--bg); border-radius: 5px; box-shadow: var(--inset); }
+        input[type="range"]::-webkit-slider-thumb { appearance: none; height: 26px; width: 26px; background: var(--s-4); border-radius: 50%; margin-top: -8px; cursor: pointer; border: 2px solid white; box-shadow: 0 0 10px var(--s-4); }
         
-        input[type="number"] { width: 100%; border: none; padding: 12px; border-radius: 12px; background: var(--bg); color: var(--s-1); font-weight: bold; font-size: 1.1rem; box-shadow: var(--inset); outline: none; box-sizing: border-box; }
+        input[type="number"] { width: 100%; border: none; padding: 12px 14px; border-radius: 12px; background: var(--bg); color: var(--s-1); font-weight: bold; font-size: 1.1rem; box-shadow: var(--inset); outline: none; box-sizing: border-box; }
         input[type="number"]:focus { border: 1px solid var(--s-5); }
 
-        .visual-section { text-align: center; display: flex; flex-direction: column; align-items: center; }
-        .gauge-container { position: relative; width: 300px; height: 150px; overflow: hidden; margin-top: 10px; }
+        .visual-section { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .gauge-container { position: relative; width: 260px; height: 130px; overflow: hidden; margin-top: 5px; }
         
         .gauge-arc { 
-            width: 300px; 
-            height: 300px; 
+            width: 260px; 
+            height: 260px; 
             border-radius: 50%; 
             background: conic-gradient(
                 from 270deg, 
@@ -63,10 +130,10 @@
         
         .needle { 
             position: absolute; 
-            bottom: 5px; 
+            bottom: 4px; 
             left: 50%; 
             width: 4px; 
-            height: 115px; 
+            height: 100px; 
             background: #fff; 
             transform-origin: bottom center; 
             transform: translateX(-50%) rotate(-90deg); 
@@ -76,33 +143,38 @@
             box-shadow: 0 0 8px rgba(255,255,255,0.8);
         }
 
-        .display-val { font-size: 5.5rem; font-weight: 800; margin: 5px 0; text-shadow: 0 4px 10px rgba(0,0,0,0.6); }
-        .status-text { font-weight: bold; text-transform: uppercase; letter-spacing: 2px; font-size: 1rem; margin-bottom: 15px; }
+        .display-val { font-size: 4.5rem; font-weight: 800; margin: 2px 0; text-shadow: 0 4px 10px rgba(0,0,0,0.6); line-height: 1; }
+        .status-text { font-weight: bold; text-transform: uppercase; letter-spacing: 1.5px; font-size: 0.9rem; margin-bottom: 12px; }
 
-        .tech-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; }
-        .tech-card { background: var(--bg); padding: 10px; border-radius: 12px; box-shadow: var(--inset); text-align: center; border: 1px solid rgba(255,255,255,0.02); }
-        .tech-card span { display: block; font-size: 0.6rem; font-weight: 900; color: var(--s-4); text-transform: uppercase; }
-        .tech-card strong { font-size: 1.1rem; color: var(--s-2); }
+        .tech-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: 100%; }
+        .tech-card { background: var(--bg); padding: 8px 4px; border-radius: 10px; box-shadow: var(--inset); text-align: center; border: 1px solid rgba(255,255,255,0.02); }
+        .tech-card span { display: block; font-size: 0.55rem; font-weight: 900; color: var(--s-4); text-transform: uppercase; margin-bottom: 2px; }
+        .tech-card strong { font-size: 1rem; color: var(--s-2); }
 
-        .results-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 30px; }
-        .res-card { background: var(--bg); padding: 18px; border-radius: 20px; text-align: center; box-shadow: var(--shadow); border-top: 3px solid var(--s-7); border-left: 1px solid rgba(255,255,255,0.03); }
-        .res-card span { display: block; font-size: 0.7rem; color: var(--s-4); text-transform: uppercase; font-weight: 800; margin-bottom: 5px; }
-        .res-card strong { font-size: 1.3rem; color: var(--danger); text-shadow: 0 2px 4px rgba(0,0,0,0.4); }
-        
-        .total-box { grid-column: span 3; background: linear-gradient(135deg, var(--s-9), var(--s-10)); border: none; padding: 25px; box-shadow: var(--shadow); border-top: 3px solid var(--s-3) !important; }
-        .total-box span { color: var(--s-2); font-size: 0.8rem; }
-        .total-box strong { color: white; font-size: 2.2rem; text-shadow: 0 3px 6px rgba(0,0,0,0.5); }
+        .results-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px; }
+        @media (max-width: 600px) {
+            .results-grid { grid-template-columns: 1fr; gap: 10px; }
+            .total-box { grid-column: span 1 !important; }
+        }
 
-        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(8px); }
-        .modal-content { background: var(--card-bg); margin: 5% auto; padding: 30px; border-radius: 25px; width: 90%; max-width: 550px; box-shadow: var(--shadow); border: 1px solid var(--s-7); position: relative; }
-        .modal-header { color: var(--s-2); font-size: 1.2rem; margin-bottom: 20px; font-weight: bold; border-bottom: 2px solid var(--s-9); padding-bottom: 10px; }
-        .modal-body { font-size: 0.95rem; line-height: 1.6; color: #efefef; }
+        .res-card { background: var(--bg); padding: 14px; border-radius: 16px; text-align: center; box-shadow: var(--shadow); border-top: 3px solid var(--s-7); border-left: 1px solid rgba(255,255,255,0.03); }
+        .res-card span { display: block; font-size: 0.65rem; color: var(--s-4); text-transform: uppercase; font-weight: 800; margin-bottom: 4px; }
+        .res-card strong { font-size: 1.15rem; color: var(--danger); text-shadow: 0 2px 4px rgba(0,0,0,0.4); word-break: break-all; }
         
-        .maint-table { width: 100%; margin-top: 15px; border-collapse: collapse; background: var(--bg); border-radius: 10px; overflow: hidden; box-shadow: var(--inset); }
-        .maint-table th, .maint-table td { padding: 12px; text-align: left; border-bottom: 1px solid #262f38; }
-        .maint-table th { background: var(--s-10); color: var(--s-2); font-size: 0.8rem; text-transform: uppercase; }
+        .total-box { grid-column: span 3; background: linear-gradient(135deg, var(--s-9), var(--s-10)); border: none; padding: 18px; box-shadow: var(--shadow); border-top: 3px solid var(--s-3) !important; }
+        .total-box span { color: var(--s-2); font-size: 0.75rem; }
+        .total-box strong { color: white; font-size: 1.8rem; text-shadow: 0 3px 6px rgba(0,0,0,0.5); }
+
+        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(8px); overflow-y: auto; padding: 20px; box-sizing: border-box; }
+        .modal-content { background: var(--card-bg); margin: 10vh auto; padding: 20px; border-radius: 20px; width: 100%; max-width: 500px; box-shadow: var(--shadow); border: 1px solid var(--s-7); position: relative; box-sizing: border-box; }
+        .modal-header { color: var(--s-2); font-size: 1.1rem; margin-bottom: 15px; font-weight: bold; border-bottom: 2px solid var(--s-9); padding-bottom: 8px; }
+        .modal-body { font-size: 0.9rem; line-height: 1.5; color: #efefef; }
         
-        .close-btn { position: absolute; right: 20px; top: 15px; color: #fff; font-size: 30px; cursor: pointer; opacity: 0.6; }
+        .maint-table { width: 100%; margin-top: 12px; border-collapse: collapse; background: var(--bg); border-radius: 10px; overflow: hidden; box-shadow: var(--inset); font-size: 0.85rem; }
+        .maint-table th, .maint-table td { padding: 10px 8px; text-align: left; border-bottom: 1px solid #262f38; }
+        .maint-table th { background: var(--s-10); color: var(--s-2); font-size: 0.75rem; text-transform: uppercase; }
+        
+        .close-btn { position: absolute; right: 15px; top: 12px; color: #fff; font-size: 26px; cursor: pointer; opacity: 0.7; }
         .close-btn:hover { opacity: 1; color: var(--s-2); }
     </style>
 </head>
@@ -111,7 +183,7 @@
 <div class="calculator-card">
     <div class="header">
         <div class="logo-container"><img src="logo.png" alt="Syntro Academy"></div>
-        <h1>Impacto Bio-Económico ITHA<br><span style="color:var(--s-4); font-size:0.8rem;">Sistema Vaca-Ternero</span></h1>
+        <h1>Impacto Bio-Económico ITHA<br><span style="color:var(--s-4); font-size:0.75rem;">Sistema Vaca-Ternero</span></h1>
     </div>
 
     <div class="main-layout">
@@ -176,7 +248,7 @@
                 </tbody>
             </table>
 
-            <p style="margin-top:20px; font-size:0.85rem; color:var(--s-2);">
+            <p style="margin-top:15px; font-size:0.8rem; color:var(--s-2);">
                 * El IPP (Intervalo Entre Partos) se ve afectado porque el estrés calórico reduce la tasa de concepción, obligando a mantener vacas "vacías" por más tiempo, lo que dispara el costo de mantenimiento improductivo.
             </p>
         </div>
