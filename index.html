@@ -9,19 +9,19 @@
             --s-1: #d9ed92; --s-2: #b5e48c; --s-3: #99d98c;
             --s-4: #76c893; --s-5: #52b69a; --s-6: #34a0a4;
             --s-7: #168aad; --s-8: #1a759f; --s-9: #1e6091; --s-10: #184e77;
-            --bg: #1a1c1e;
-            --card-bg: #2d3134;
+            --bg: #121417;
+            --card-bg: #1a1f24;
             --text: #ffffff;
-            --danger: #ff4d4d;
-            --shadow: 10px 10px 20px #0d0e0f, -5px -5px 15px #3a3f44;
-            --inset: inset 4px 4px 8px #0d0e0f, inset -4px -4px 8px #3a3f44;
+            --danger: #ff6b6b;
+            --shadow: 10px 10px 25px #08090a, -5px -5px 15px #262f38;
+            --inset: inset 4px 4px 8px #08090a, inset -4px -4px 8px #262f38;
         }
 
         body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; padding: 20px; margin: 0; }
-        .calculator-card { background: var(--card-bg); padding: 30px; border-radius: 30px; width: 100%; max-width: 950px; box-shadow: var(--shadow); border: 1px solid rgba(255,255,255,0.05); position: relative; }
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .calculator-card { background: var(--card-bg); padding: 30px; border-radius: 30px; width: 100%; max-width: 950px; box-shadow: var(--shadow); border: 1px solid rgba(118, 200, 147, 0.15); position: relative; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 2px solid var(--s-10); padding-bottom: 15px; }
         .logo-container img { height: 70px; width: auto; }
-        h1 { font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; color: var(--s-2); margin: 0; text-align: right; line-height: 1.2; }
+        h1 { font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; color: var(--s-2); margin: 0; text-align: right; line-height: 1.2; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
         
         .main-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
         @media (max-width: 768px) { .main-layout { grid-template-columns: 1fr; } }
@@ -29,16 +29,19 @@
         .control-group { margin-bottom: 18px; position: relative; }
         label { display: block; font-size: 0.85rem; font-weight: bold; margin-bottom: 8px; color: var(--s-3); }
         
-        .info-btn { background: var(--s-8); border: none; color: white; border-radius: 50%; width: 22px; height: 22px; font-size: 14px; cursor: pointer; margin-left: 8px; vertical-align: middle; transition: 0.3s; box-shadow: var(--shadow); }
+        .info-btn { background: var(--s-7); border: none; color: white; border-radius: 50%; width: 22px; height: 22px; font-size: 14px; cursor: pointer; margin-left: 8px; vertical-align: middle; transition: 0.3s; box-shadow: var(--shadow); }
         .info-btn:hover { background: var(--s-5); transform: scale(1.1); }
 
         .itha-controls { display: flex; align-items: center; gap: 15px; }
-        .btn-step { width: 45px; height: 45px; border-radius: 12px; border: none; background: var(--s-10); color: white; font-size: 1.5rem; cursor: pointer; box-shadow: var(--shadow); transition: 0.2s; }
+        .btn-step { width: 45px; height: 45px; border-radius: 12px; border: none; background: var(--s-9); color: white; font-size: 1.5rem; cursor: pointer; box-shadow: var(--shadow); transition: 0.2s; }
+        .btn-step:hover { background: var(--s-7); transform: translateY(-1px); }
         
-        input[type="range"] { flex-grow: 1; appearance: none; background: transparent; }
+        input[type="range"] { flex-grow: 1; appearance: none; background: transparent; cursor: pointer; }
         input[type="range"]::-webkit-slider-runnable-track { height: 8px; background: var(--bg); border-radius: 4px; box-shadow: var(--inset); }
-        input[type="range"]::-webkit-slider-thumb { appearance: none; height: 22px; width: 22px; background: var(--s-5); border-radius: 50%; margin-top: -7px; cursor: pointer; border: 2px solid white; }
-        input[type="number"] { width: 100%; border: none; padding: 12px; border-radius: 10px; background: var(--bg); color: white; font-weight: bold; font-size: 1.1rem; box-shadow: var(--inset); outline: none; box-sizing: border-box; }
+        input[type="range"]::-webkit-slider-thumb { appearance: none; height: 22px; width: 22px; background: var(--s-4); border-radius: 50%; margin-top: -7px; cursor: pointer; border: 2px solid white; box-shadow: 0 0 10px var(--s-4); }
+        
+        input[type="number"] { width: 100%; border: none; padding: 12px; border-radius: 12px; background: var(--bg); color: var(--s-1); font-weight: bold; font-size: 1.1rem; box-shadow: var(--inset); outline: none; box-sizing: border-box; }
+        input[type="number"]:focus { border: 1px solid var(--s-5); }
 
         .visual-section { text-align: center; display: flex; flex-direction: column; align-items: center; }
         .gauge-container { position: relative; width: 300px; height: 150px; overflow: hidden; margin-top: 10px; }
@@ -70,36 +73,37 @@
             transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
             z-index: 5; 
             border-radius: 4px;
+            box-shadow: 0 0 8px rgba(255,255,255,0.8);
         }
 
-        .display-val { font-size: 5.5rem; font-weight: 800; margin: 5px 0; }
+        .display-val { font-size: 5.5rem; font-weight: 800; margin: 5px 0; text-shadow: 0 4px 10px rgba(0,0,0,0.6); }
         .status-text { font-weight: bold; text-transform: uppercase; letter-spacing: 2px; font-size: 1rem; margin-bottom: 15px; }
 
         .tech-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; }
-        .tech-card { background: var(--bg); padding: 10px; border-radius: 12px; box-shadow: var(--inset); text-align: center; }
-        .tech-card span { display: block; font-size: 0.6rem; font-weight: 900; color: var(--s-5); text-transform: uppercase; }
+        .tech-card { background: var(--bg); padding: 10px; border-radius: 12px; box-shadow: var(--inset); text-align: center; border: 1px solid rgba(255,255,255,0.02); }
+        .tech-card span { display: block; font-size: 0.6rem; font-weight: 900; color: var(--s-4); text-transform: uppercase; }
         .tech-card strong { font-size: 1.1rem; color: var(--s-2); }
 
         .results-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 30px; }
-        .res-card { background: var(--bg); padding: 18px; border-radius: 20px; text-align: center; box-shadow: var(--shadow); border-top: 3px solid var(--s-8); }
-        .res-card span { display: block; font-size: 0.7rem; color: var(--s-5); text-transform: uppercase; font-weight: 800; margin-bottom: 5px; }
-        .res-card strong { font-size: 1.3rem; color: var(--danger); }
+        .res-card { background: var(--bg); padding: 18px; border-radius: 20px; text-align: center; box-shadow: var(--shadow); border-top: 3px solid var(--s-7); border-left: 1px solid rgba(255,255,255,0.03); }
+        .res-card span { display: block; font-size: 0.7rem; color: var(--s-4); text-transform: uppercase; font-weight: 800; margin-bottom: 5px; }
+        .res-card strong { font-size: 1.3rem; color: var(--danger); text-shadow: 0 2px 4px rgba(0,0,0,0.4); }
         
-        .total-box { grid-column: span 3; background: linear-gradient(145deg, #c0392b, #8e1e14); border: none; padding: 25px; }
-        .total-box span { color: rgba(255,255,255,0.8); }
-        .total-box strong { color: white; font-size: 2.2rem; }
+        .total-box { grid-column: span 3; background: linear-gradient(135deg, var(--s-9), var(--s-10)); border: none; padding: 25px; box-shadow: var(--shadow); border-top: 3px solid var(--s-3) !important; }
+        .total-box span { color: var(--s-2); font-size: 0.8rem; }
+        .total-box strong { color: white; font-size: 2.2rem; text-shadow: 0 3px 6px rgba(0,0,0,0.5); }
 
         .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(8px); }
-        .modal-content { background: var(--card-bg); margin: 5% auto; padding: 30px; border-radius: 25px; width: 90%; max-width: 550px; box-shadow: var(--shadow); border: 1px solid var(--s-8); position: relative; }
+        .modal-content { background: var(--card-bg); margin: 5% auto; padding: 30px; border-radius: 25px; width: 90%; max-width: 550px; box-shadow: var(--shadow); border: 1px solid var(--s-7); position: relative; }
         .modal-header { color: var(--s-2); font-size: 1.2rem; margin-bottom: 20px; font-weight: bold; border-bottom: 2px solid var(--s-9); padding-bottom: 10px; }
         .modal-body { font-size: 0.95rem; line-height: 1.6; color: #efefef; }
         
-        .maint-table { width: 100%; margin-top: 15px; border-collapse: collapse; background: var(--bg); border-radius: 10px; overflow: hidden; }
-        .maint-table th, .maint-table td { padding: 12px; text-align: left; border-bottom: 1px solid #3a3f44; }
+        .maint-table { width: 100%; margin-top: 15px; border-collapse: collapse; background: var(--bg); border-radius: 10px; overflow: hidden; box-shadow: var(--inset); }
+        .maint-table th, .maint-table td { padding: 12px; text-align: left; border-bottom: 1px solid #262f38; }
         .maint-table th { background: var(--s-10); color: var(--s-2); font-size: 0.8rem; text-transform: uppercase; }
         
         .close-btn { position: absolute; right: 20px; top: 15px; color: #fff; font-size: 30px; cursor: pointer; opacity: 0.6; }
-        .close-btn:hover { opacity: 1; }
+        .close-btn:hover { opacity: 1; color: var(--s-2); }
     </style>
 </head>
 <body>
@@ -107,13 +111,13 @@
 <div class="calculator-card">
     <div class="header">
         <div class="logo-container"><img src="logo.png" alt="Syntro Academy"></div>
-        <h1>Impacto Bio-Económico ITHA<br><span style="color:var(--s-5); font-size:0.8rem;">Sistema Vaca-Ternero</span></h1>
+        <h1>Impacto Bio-Económico ITHA<br><span style="color:var(--s-4); font-size:0.8rem;">Sistema Vaca-Ternero</span></h1>
     </div>
 
     <div class="main-layout">
         <div class="input-section">
             <div class="control-group">
-                <label>Nivel de ITHA: <span id="itha-num" style="color:var(--s-1)">72</span></label>
+                <label>Nivel de ITHA: <span id="itha-num" style="color:var(--s-2)">72</span></label>
                 <div class="itha-controls">
                     <button class="btn-step" onclick="changeItha(-1)">−</button>
                     <input type="range" id="itha-slider" min="60" max="100" value="72">
@@ -158,7 +162,7 @@
         <span class="close-btn" onclick="closeModal()">&times;</span>
         <div class="modal-header">Análisis de Mantenimiento Dinámico</div>
         <div class="modal-body">
-            <p>Este costo diario asegura la supervivencia y salud de <strong id="m-count">50</strong> vacas y sus terneros antes de producir.</p>
+            <p>Este costo diario asegura la supervivencia y salud de <strong id="m-count" style="color:var(--s-2)">50</strong> vacas y sus terneros antes de producir.</p>
             
             <table class="maint-table">
                 <thead>
@@ -262,9 +266,9 @@
         let $ipp = (diasIppVaca * n) * cm;
         let $peso = (kgPerdVaca * n) * pc;
 
-        document.getElementById('r-leche').innerText = '$' + $leche.toLocaleString(undefined, {minimumFractionDigits:2});
-        document.getElementById('r-ipp').innerText = '$' + $ipp.toLocaleString(undefined, {minimumFractionDigits:2});
-        document.getElementById('r-peso').innerText = '$' + $peso.toLocaleString(undefined, {minimumFractionDigits:2});
+        document.getElementById('r-leche').innerText = '$' +$leche.toLocaleString(undefined, {minimumFractionDigits:2});
+        document.getElementById('r-ipp').innerText = '$' +$ipp.toLocaleString(undefined, {minimumFractionDigits:2});
+        document.getElementById('r-peso').innerText = '$' +$peso.toLocaleString(undefined, {minimumFractionDigits:2});
         
         let totalMes = ($leche * 30) + $ipp + ($peso * 30);
         document.getElementById('r-total').innerText = '$' + totalMes.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
